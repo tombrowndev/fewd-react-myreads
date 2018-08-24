@@ -1,4 +1,5 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
 import Bookshelf from './Bookshelf'
 import Search from './Search'
 // import * as BooksAPI from './BooksAPI'
@@ -8,7 +9,12 @@ class BooksApp extends React.Component {
   state = {}
 
   render() {
-    return 'Hello world'
+    return (
+      <React.Fragment>
+        <Route exact path="/" component={Bookshelf}/>
+        <Route exact path="/search" component={Search}/>
+      </React.Fragment>
+    )
   }
 }
 
