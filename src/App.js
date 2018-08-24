@@ -25,7 +25,14 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     if(this.storageAvailable('localStorage')) {
-      window.localStorage.setItem('myreads', JSON.stringify(this.state))
+      const initialState = window.localStorage.getItem('myreads')
+
+      if(initialState === null) {
+        window.localStorage.setItem('myreads', JSON.stringify(this.state))
+      } else {
+        this.setState(JSON.parse(initialState))
+      }
+      
     }
   }
 
