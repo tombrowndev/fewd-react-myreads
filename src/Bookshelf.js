@@ -19,7 +19,7 @@ class Bookshelf extends React.Component {
             <div className="list-books-content">
               <div>
 
-                {shelves.map(shelf => (
+                {Object.keys(shelves).map(shelf => (
                     <div className="bookshelf">
                         <h2 className="bookshelf-title">{shelf.title}</h2>
                         <div className="bookshelf-books">
