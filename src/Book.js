@@ -6,7 +6,7 @@ class Book extends React.Component {
   state = {}
 
   render() {
-    const { content } = this.props
+    const { content, handleShelfChange } = this.props
 
     return (
         <li>
@@ -14,11 +14,11 @@ class Book extends React.Component {
             <div className="book-top">
             <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: 'url('+ content.imageLinks.thumbnail +')' }}></div>
             <div className="book-shelf-changer">
-                <select>
+                <select value={content.shelf} onChange={(event) => {handleShelfChange(content.id, event)}}>
                 <option value="move" disabled>Move to...</option>
-                <option value="currentlyReading" selected={content.shelf == 'currentlyReading' ? true : false}>Currently Reading</option>
-                <option value="wantToRead" selected={content.shelf == 'wantToRead' ? true : false}>Want to Read</option>
-                <option value="read" selected={content.shelf == 'read' ? true : false}>Read</option>
+                <option value="currentlyReading">Currently Reading</option>
+                <option value="wantToRead">Want to Read</option>
+                <option value="read">Read</option>
                 <option value="none">None</option>
                 </select>
             </div>

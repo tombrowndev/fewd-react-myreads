@@ -8,7 +8,11 @@ class Bookshelf extends React.Component {
   state = {}
 
   booksToShelves = (books) => {
-    const newShelves = {}
+    const newShelves = {
+      currentlyReading: [],
+      wantToRead: [],
+      read: []
+    }
 
     if(books.length > 0) {
       books.forEach(book => {
@@ -23,7 +27,7 @@ class Bookshelf extends React.Component {
   }
 
   render() {
-    const {books} = this.props
+    const {books, handleShelfChange} = this.props
     const shelves = this.booksToShelves(books)
     return (
       <div className="app">
@@ -35,7 +39,7 @@ class Bookshelf extends React.Component {
               <div>
 
                 {Object.keys(shelves).map(shelf => (
-                    <div className="bookshelf">
+                    <div key={shelf} className="bookshelf">
                         <h2 className="bookshelf-title">{
                          shelf === 'currentlyReading' 
                           ? 'Currently Reading' 
@@ -46,7 +50,7 @@ class Bookshelf extends React.Component {
                         <div className="bookshelf-books">
                             <ol className="books-grid">
                             {shelves[shelf].map((book) => (
-                              <Book content={book}/>
+                              <Book key={book.id} content={book} handleShelfChange={handleShelfChange}/>
                             ))}
                             </ol>
                         </div>
