@@ -25,7 +25,6 @@ class BooksApp extends React.Component {
   }
 
   handleShelfChange = (book, event) => {
-    const { books } = this.state
     const value = event.target.value
 
     if(['currentlyReading', 'wantToRead', 'read', 'none'].indexOf(value) === -1) {
@@ -54,7 +53,9 @@ class BooksApp extends React.Component {
   }
 
   addBook = (book) => {
-    let newBooks = []
+    this.setState((state) => {
+      return {books: state.books.push(book)}
+    })
   }
 
   changeBookShelf = (id, shelf) => {
