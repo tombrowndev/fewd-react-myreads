@@ -24,7 +24,7 @@ class BooksApp extends React.Component {
       })
   }
 
-  handleShelfChange = (id, event) => {
+  handleShelfChange = (book, event) => {
     const { books } = this.state
     const value = event.target.value
 
@@ -35,18 +35,17 @@ class BooksApp extends React.Component {
 
     // Remove a book
     if(value === 'none') {
-      BooksAPI.update({id}, value)
+      BooksAPI.update(book, value)
         .then(() => {
-          this.removeBook(id)
+          this.removeBook(book.id)
         })
         .catch((error) => {
           console.log('Can\'t remove book', error)
         })
     } else {
-      console.log(id, value)
-      BooksAPI.update({id}, value)
+      BooksAPI.update(book, value)
         .then(() => {
-          this.changeBookShelf(id, value)
+          this.changeBookShelf(book.id, value)
         })
         .catch((error) => {
           console.log('Can\'t move book', error)

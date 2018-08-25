@@ -50,7 +50,7 @@ class Bookshelf extends React.Component {
                         <div className="bookshelf-books">
                             <ol className="books-grid">
                             {shelves[shelf].map((book) => (
-                              <Book key={book.id} content={book} handleShelfChange={handleShelfChange}/>
+                              <Book key={book.id} book={book} handleShelfChange={handleShelfChange}/>
                             ))}
                             </ol>
                         </div>
