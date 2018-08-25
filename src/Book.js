@@ -12,9 +12,13 @@ class Book extends React.Component {
         <li>
         <div className="book">
             <div className="book-top">
-            <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: 'url('+ book.imageLinks.thumbnail +')' }}></div>
+            {typeof book.imageLinks !== 'undefined' ? (
+                <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: 'url('+ book.imageLinks.thumbnail +')' }}></div>
+            ) : (
+                <div className="book-cover-placeholder">{book.title}</div>
+            )}
             <div className="book-shelf-changer">
-                <select value={book.shelf} onChange={(event) => {handleShelfChange(book, event)}}>
+                <select value={book.shelf} onChange={(event) => {handleShelfChange(book, event.target.value)}}>
                 <option value="move" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
@@ -24,7 +28,9 @@ class Book extends React.Component {
             </div>
             </div>
             <div className="book-title">{book.title}</div>
-            <div className="book-authors">{book.authors.join(', ')}</div>
+            {book.authors && (
+                <div className="book-authors">{book.authors.join(', ')}</div>
+            )}
         </div>
         </li>
     )

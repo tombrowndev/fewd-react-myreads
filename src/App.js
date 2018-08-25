@@ -24,56 +24,61 @@ class BooksApp extends React.Component {
       })
   }
 
-  handleShelfChange = (book, event) => {
-    const value = event.target.value
-
+  handleShelfChange = (book, value) => {
+    // Check the value is valid
     if(['currentlyReading', 'wantToRead', 'read', 'none'].indexOf(value) === -1) {
       console.log('Invalid shelf given')
       return
     }
 
-    // Remove a book
-    if(value === 'none') {
-      BooksAPI.update(book, value)
-        .then(() => {
-          this.removeBook(book.id)
-        })
-        .catch((error) => {
-          console.log('Can\'t remove book', error)
-        })
-    } else {
-      BooksAPI.update(book, value)
-        .then(() => {
-          this.changeBookShelf(book.id, value)
-        })
-        .catch((error) => {
-          console.log('Can\'t move book', error)
-        })
-    }
+    BooksAPI.update(book, value)
+      .then(() => {
+        if(value === 'none') {
+          this.removeBook(book)
+        } else {
+          this.changeBookShelf(book, value)
+        }
+      })
+      .catch((error) => {
+        console.log('Can\'t move book', error)
+      })
   }
 
   addBook = (book) => {
-    this.setState((state) => {
-      return {books: state.books.push(book)}
-    })
+    const {books} = this.state
+    let bookExists = false
+
+    // Check if book already exists
+    if(books.length > 0) {
+      books.forEach((_book) => {
+        if(_book.id === book.id) bookExists = true
+      })
+    }
+    if(bookExists) return
+
+    books.push(book)
+    this.setState({books})
   }
 
-  changeBookShelf = (id, shelf) => {
+  changeBookShelf = (book, shelf) => {
+    // Add the book if it doesnt already exist
+    this.addBook(book)
+
     this.setState((state) => {
       return {books: (() => {
-        return state.books.map((book) => {
-          if(book.id === id) book.shelf = shelf
-          return book
+        return state.books.map((_book) => {
+          if(_book.id === book.id) _book.shelf = shelf
+          return _book
         })
       })()}
     })
   }
 
-  removeBook = (id) => {
+  removeBook = (book) => {
     this.setState((state) => {
       return {books: (() => {
-        return state.books.filter((book) => {
-          if(book.id === id) return false
+        return state.books.filter((_book) => {
+          if(_book.id === book.id) return false
           return true
         })
       })()}
@@ -86,7 +91,9 @@ class BooksApp extends React.Component {
         <Route exact path="/" render={() => (
           <Bookshelf books={this.state.books} handleShelfChange={this.handleShelfChange}/>
         )}/>
-        <Route exact path="/search" component={Search}/>
+        <Route path="/search" render={() => (
+          <Search books={this.state.books} handleShelfChange={this.handleShelfChange}/>
+        )}/>
       </React.Fragment>
     )
   }

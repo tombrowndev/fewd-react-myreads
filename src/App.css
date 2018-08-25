@@ -172,3 +172,17 @@ body, .app {
   text-align: center;
   font-size: 0.8em;
 }
+.book-cover-placeholder {
+  background-color: #202124;
+  width: 128px;
+  height: 188px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  color: #FFF;
+  font-family: 'Times New Roman', Times, serif;
+  display: flex;
+  align-items: top;
+  justify-content: left;
+  padding: 12px 10px;
+  overflow: hidden;
+  font-size: 0.9em;
+}
