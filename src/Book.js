@@ -6,23 +6,25 @@ class Book extends React.Component {
   state = {}
 
   render() {
+    const { content } = this.props
+
     return (
         <li>
         <div className="book">
             <div className="book-top">
-            <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: 'url("http://books.google.com/books/content?id=yDtCuFHXbAYC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72RRiTR6U5OUg3IY_LpHTL2NztVWAuZYNFE8dUuC0VlYabeyegLzpAnDPeWxE6RHi0C2ehrR9Gv20LH2dtjpbcUcs8YnH5VCCAH0Y2ICaKOTvrZTCObQbsfp4UbDqQyGISCZfGN&source=gbs_api")' }}></div>
+            <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: 'url('+ content.imageLinks.thumbnail +')' }}></div>
             <div className="book-shelf-changer">
                 <select>
                 <option value="move" disabled>Move to...</option>
-                <option value="currentlyReading">Currently Reading</option>
-                <option value="wantToRead">Want to Read</option>
-                <option value="read">Read</option>
+                <option value="currentlyReading" selected={content.shelf == 'currentlyReading' ? true : false}>Currently Reading</option>
+                <option value="wantToRead" selected={content.shelf == 'wantToRead' ? true : false}>Want to Read</option>
+                <option value="read" selected={content.shelf == 'read' ? true : false}>Read</option>
                 <option value="none">None</option>
                 </select>
             </div>
             </div>
-            <div className="book-title">Ender's Game</div>
-            <div className="book-authors">Orson Scott Card</div>
+            <div className="book-title">{content.title}</div>
+            <div className="book-authors">{content.authors.join(', ')}</div>
         </div>
         </li>
     )
