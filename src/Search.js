@@ -68,7 +68,7 @@ class Search extends React.Component {
     }
 
     books.map((book) => {
-      shelves[book.shelf] = book.id
+      shelves[book.shelf].push(book.id)
     })
 
     return shelves
