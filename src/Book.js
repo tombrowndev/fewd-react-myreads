@@ -1,10 +1,8 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
 import './App.css'
 
-class Book extends React.Component {
-  render() {
-    const { book, handleShelfChange } = this.props
+const Book = (props) => {
+    const { book, handleShelfChange } = props
 
     return (
         <li>
@@ -32,7 +30,6 @@ class Book extends React.Component {
         </div>
         </li>
     )
-  }
 }
 
 export default Book
