@@ -56,8 +56,9 @@ class BooksApp extends React.Component {
     }
     if(bookExists) return
 
-    books.push(book)
-    this.setState({books})
+    this.setState((state) => ({
+      books: [...books, book]
+    }))
   }
 
   changeBookShelf = (book, shelf) => {
