@@ -5,8 +5,6 @@ import Book from './Book'
 import './App.css'
 
 class Bookshelf extends React.Component {
-  state = {}
-
   booksToShelves = (books) => {
     const newShelves = {
       currentlyReading: [],

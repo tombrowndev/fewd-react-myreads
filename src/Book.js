@@ -3,8 +3,6 @@ import React from 'react'
 import './App.css'
 
 class Book extends React.Component {
-  state = {}
-
   render() {
     const { book, handleShelfChange } = this.props
 
